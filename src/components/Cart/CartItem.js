@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { removeProduce } from '../../store/cart';
 
 function CartItem({ item }) {
   const [count, setCount] = useState(item.count);
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setCount(item.count);
   }, [item.count]);
+
+
+  function handleRemoveItem(){
+    dispatch(removeProduce(item))
+  }
 
   return (
     <li className="cart-item">
@@ -26,6 +35,7 @@ function CartItem({ item }) {
           -
         </button>
         <button
+          onClick={handleRemoveItem}
           className="cart-item-button"
         >
           Remove
